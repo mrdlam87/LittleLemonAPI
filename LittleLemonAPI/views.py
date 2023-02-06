@@ -2,11 +2,21 @@ from django.shortcuts import render
 from rest_framework import generics, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializers import MenuItemSerializer
-from .models import MenuItem
+from .serializers import MenuItemSerializer, CategorySerializer
+from .models import MenuItem, Category
 from django.core.paginator import Paginator, EmptyPage
 
 # Create your views here.
+
+
+class SingleCategoryView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+
+
+class CategoriesView(generics.ListCreateAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
 
 
 class MenuItemsView(generics.ListCreateAPIView):
